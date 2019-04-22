@@ -23,7 +23,7 @@ public class StudantController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<?> getStudentById(@PathVariable("id") int id) {
-        
-        return new ResponseEntity<>()
+
+        return new ResponseEntity<>();
     }
 }
