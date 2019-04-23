@@ -5,25 +5,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-import static java.util.Arrays.asList;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class Student {
+@Entity
+@Table(name = "student")
+public class Student extends AbstractEntity {
 
-    private String name;
+    @NotNull private String firstName;
+    @NotNull private String middleName;
+    @NotNull private String lastName;
+    @NotNull private String sex;
+    @NotNull private Long age;
 
-    public static List<Student> studentList;
 
-    static {
-        getStudentListRepository();
-    }
-
-    private static void getStudentListRepository() {
-        studentList = asList(new Student("Ysmarks"), new Student("Kelly"), new Student("David"));
-    }
 }
