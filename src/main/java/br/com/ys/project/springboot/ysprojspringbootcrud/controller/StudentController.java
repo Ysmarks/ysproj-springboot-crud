@@ -4,6 +4,7 @@ import br.com.ys.project.springboot.ysprojspringbootcrud.domain.Student;
 import br.com.ys.project.springboot.ysprojspringbootcrud.repository.interfaces.StudentRepository;
 import br.com.ys.project.springboot.ysprojspringbootcrud.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,8 @@ public class StudentController {
     private final StudentRepository dao;
 
     @GetMapping
-    public ResponseEntity<?> getAllStudents() {
-        return new ResponseEntity<>(dao.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> getAllStudents(Pageable pageable) {
+        return new ResponseEntity<>(dao.findAll(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -28,7 +29,10 @@ public class StudentController {
         Optional<Student> student = dao.findById(id);
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
-
+    @GetMapping(path = "/student/{firstName}")
+    public ResponseEntity<?> getStudentByFirstName(@PathVariable("firstName") String firstName) {
+        return new ResponseEntity<>(dao.findByFirstNameIgnoreCaseContaining(firstName), HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Student student) {
         System.out.printf("create student success");
