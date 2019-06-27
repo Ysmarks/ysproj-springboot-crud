@@ -21,7 +21,7 @@ public class StudentController {
 
     @GetMapping
     public ResponseEntity<?> getAllStudents(Pageable pageable) {
-        return new ResponseEntity<>(dao.findAll(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(dao.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
